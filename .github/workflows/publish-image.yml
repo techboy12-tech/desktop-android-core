@@ -1,0 +1,90 @@
+name: Publish Core Image to GHCR
+
+on:
+  push:
+    branches:
+      - main
+    # Optional: Trigger on version tags (e.g., v1.0.0)
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-core:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write # Required for Cosign keyless signing
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Optimization: Clean up disk space before heavy build
+      - name: Prune Docker System
+        run: |
+          docker system prune -af --volumes || true
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # Default tag 'latest' on main branch
+            type=raw,value=latest,enable={{is_default_branch}}
+            # Tag based on git tag (v1.0.0)
+            type=ref,event=tag
+            # Tag based on sha (optional for debugging)
+            type=sha,format=long
+          labels: |
+            org.opencontainers.image.title=SwapLab Android Build Engine
+            org.opencontainers.image.vendor=SwapLab Engine
+            org.opencontainers.image.licenses=Proprietary
+            org.opencontainers.image.source=https://github.com/swaplab-engine/desktop-android-core
+            org.opencontainers.image.url=https://github.com/swaplab-engine/desktop-android-core
+            org.opencontainers.image.description=Official build engine. Public Core Image.
+
+      - name: Build and Push Core Image
+        id: build-and-push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: true
+
+      # Security: Sign the image with Sigstore/Cosign
+      - name: Install Cosign
+        if: success()
+        uses: sigstore/cosign-installer@v3
+        with:
+          cosign-release: 'v2.2.4'
+
+      - name: Sign the Docker image
+        if: success()
+        env:
+          COSIGN_EXPERIMENTAL: 1
+          IMAGE_DIGEST: ${{ steps.build-and-push.outputs.digest }}
+        run: |
+          echo "Signing image digest: ${IMAGE_DIGEST}"
+          # Sign the image using the GitHub OIDC token
+          cosign sign --yes "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${IMAGE_DIGEST}"
